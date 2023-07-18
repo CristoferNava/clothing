@@ -1,8 +1,13 @@
+import { useContext } from "react";
 import { Outlet, Link } from "react-router-dom";
+import { UserContext } from "../../context/user.context";
 import { ReactComponent as DuckLogo } from "../../assets/duck.svg";
 import "./navigation.styles.scss";
 
 const Navigation = () => {
+  const { currentUser } = useContext(UserContext);
+  console.log(currentUser);
+  console.log("I am the navigation");
   return (
     <>
       <div className="navigation">
