@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Outlet, Link } from "react-router-dom";
 import { UserContext } from "../../context/user.context";
+import { CartContext } from "../../context/cart.context";
 import CartIcon from "../../components/cart-icon/cart-icon.component";
 import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component";
 import { ReactComponent as DuckLogo } from "../../assets/duck.svg";
@@ -9,11 +10,13 @@ import "./navigation.styles.scss";
 
 const Navigation = () => {
   const { currentUser, setCurrentUser } = useContext(UserContext);
+  const { isCartOpen } = useContext(CartContext);
 
   const signOutHandler = async () => {
     await signOutUser;
     setCurrentUser(null);
   };
+
   return (
     <>
       <div className="navigation">
@@ -35,7 +38,7 @@ const Navigation = () => {
           )}
           <CartIcon />
         </div>
-        <CartDropdown />
+        {isCartOpen && <CartDropdown />}
       </div>
       <Outlet />
     </>
