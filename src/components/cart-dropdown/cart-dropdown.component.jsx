@@ -1,5 +1,6 @@
-import Button from "../button/button.component";
 import { useContext } from "react";
+import { Link } from "react-router-dom";
+import Button from "../button/button.component";
 
 import CartItem from "../cart-item/cart-item.component";
 
@@ -17,7 +18,9 @@ const CartDropdown = () => {
           return <CartItem key={key} cartItem={cartItems.get(key)} />;
         })}
       </div>
-      <Button>CHECKOUT</Button>
+      <Link to="/shop/checkout">
+        <Button>CHECKOUT</Button>
+      </Link>
     </div>
   );
 };

@@ -19,12 +19,33 @@ export const CartProvider = ({ children }) => {
     setCartItems(new Map(cartItems));
   };
 
+  const increaseItemQuantity = (productId) => {
+    cartItems.get(productId).quantity += 1;
+    setCartItems(new Map(cartItems));
+  };
+
+  const decreaseItemQuantity = (productId) => {
+    const quantity = cartItems.get(productId).quantity;
+    if (quantity === 0) return;
+    cartItems.get(productId).quantity -= 1;
+    setCartItems(new Map(cartItems));
+  };
+
+  const removeItem = (productId) => {
+    console.log("I am remove item");
+    cartItems.delete(productId);
+    setCartItems(new Map(cartItems));
+  };
+
   const value = {
     isCartOpen,
     setIsCartOpen,
     cartItems,
     setCartItems,
     addCartItem,
+    increaseItemQuantity,
+    decreaseItemQuantity,
+    removeItem,
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
