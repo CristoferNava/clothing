@@ -17,6 +17,7 @@ const CartIcon = () => {
       numberOfItems += cartItem.quantity;
       setItemCount(numberOfItems);
     }
+    setItemCount(numberOfItems);
   }, [cartItems]);
 
   return (

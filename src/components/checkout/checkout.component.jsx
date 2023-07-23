@@ -1,6 +1,7 @@
 import { useContext } from "react";
 
 import { CartContext } from "../../context/cart.context";
+import CheckoutItem from "../checkout-item/checkout-item.component";
 
 import "./checkout.styles.scss";
 
@@ -14,51 +15,34 @@ const Checkout = () => {
   );
 
   return (
-    <div>
-      <table>
-        <thead>
-          <tr>
-            <th>Product</th>
-            <th>Description</th>
-            <th>Quantity</th>
-            <th>Price</th>
-            <th>Total</th>
-            <th>Remove</th>
-          </tr>
-        </thead>
-        <tbody>
-          {cartItemsValues.map((cartItem) => {
-            return <CheckoutItem key={cartItem.id} cartItem={cartItem} />;
-          })}
-        </tbody>
-      </table>
-      <h2>TOTAL: ${total}</h2>
+    <div className="checkout-container">
+      <div className="checkout-header">
+        <div className="header-block">
+          <span>Product</span>
+        </div>
+        <div className="header-block">
+          <span>Description</span>
+        </div>
+        <div className="header-block">
+          <span>Quantity</span>
+        </div>
+        <div className="header-block">
+          <span>Price</span>
+        </div>
+        <div className="header-block">
+          <span>Total</span>
+        </div>
+        <div className="header-block">
+          <span>Remove</span>
+        </div>
+      </div>
+
+      {cartItemsValues.map((cartItem) => {
+        return <CheckoutItem key={cartItem.id} cartItem={cartItem} />;
+      })}
+
+      <span className="total">TOTAL: ${total}</span>
     </div>
-  );
-};
-
-const CheckoutItem = ({ cartItem }) => {
-  const { id, name, imageUrl, price, quantity } = cartItem;
-  const { increaseItemQuantity, decreaseItemQuantity, removeItem } =
-    useContext(CartContext);
-
-  return (
-    <tr>
-      <td>
-        <img src={imageUrl} alt={`Image of the product ${name}`} />
-      </td>
-      <td>{name}</td>
-      <td>
-        <button onClick={() => decreaseItemQuantity(id)}>&lt;</button>
-        {quantity}
-        <button onClick={() => increaseItemQuantity(id)}>&gt;</button>
-      </td>
-      <td>{price}</td>
-      <td>{parseInt(quantity) * parseInt(price)}</td>
-      <td>
-        <button onClick={() => removeItem(id)}>X</button>
-      </td>
-    </tr>
   );
 };
 
