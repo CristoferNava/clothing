@@ -1,4 +1,5 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, /*useState,*/ useEffect, useReducer } from "react";
+
 import {
   createUserDocumentFromAuth,
   onAuthStateChangedListener,
@@ -10,8 +11,25 @@ export const UserContext = createContext({
   setCurrentUser: () => null,
 });
 
+const userReducer = (state, action) => {
+  switch (action.type) {
+    case "SET_CURRENT_USER":
+      return {
+        currentUser: action.payload,
+      };
+    default:
+      throw new Error("Invalid action type");
+  }
+};
+
 export const UserProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(null);
+  // const [currentUser, setCurrentUser] = useState(null);
+  const [state, dispatch] = useReducer(userReducer, { currentUser: null });
+  const { currentUser } = state;
+  const setCurrentUser = (user) => {
+    dispatch({ type: "SET_CURRENT_USER", payload: user });
+  };
+
   const value = { currentUser, setCurrentUser };
 
   useEffect(() => {
