@@ -23,6 +23,7 @@ const Navigation = () => {
         <Link className="logo-container" to="/">
           <DuckLogo className="logo" />
         </Link>
+        *This a is fake web app I built for learning purposes!
         <div className="nav-links-container">
           <Link className="nav-link" to="/shop">
             SHOP
